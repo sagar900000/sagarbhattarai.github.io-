@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Login Page</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: black;
+            color: #0f0;
+            font-family: 'Courier New', monospace;
+        }
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        .login-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            font-size: 1.2em;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border: 2px solid #0f0;
+            box-shadow: 0 0 15px #0f0;
+            animation: glitch 1s infinite alternate;
+        }
+        input {
+            background: black;
+            border: 1px solid #0f0;
+            color: #0f0;
+            font-size: 1em;
+            padding: 5px;
+            margin: 10px 0 20px;
+            width: 90%;
+        }
+        button {
+            background: black;
+            border: 1px solid #0f0;
+            color: #0f0;
+            font-size: 1em;
+            padding: 10px;
+            cursor: pointer;
+            width: 100%;
+            box-shadow: 0 0 5px #0f0;
+        }
+        @keyframes glitch {
+            0% { text-shadow: 2px 2px 5px #0f0; }
+            100% { text-shadow: -2px -2px 5px #0f0; }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="matrix"></canvas>
+    <div class="login-container">
+        <h2>Login to sagar web</h2>
+        <input type="text" placeholder="Username" id="username"><br>
+        <input type="password" placeholder="Password" id="password"><br>
+        <button onclick="login()">Access</button>
+    </div>
+    <script>
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        const columns = canvas.width / 15;
+        const drops = Array(Math.floor(columns)).fill(1);
+
+        function draw() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#0f0';
+            ctx.font = '15px monospace';
+            drops.forEach((y, i) => {
+                const text = characters[Math.floor(Math.random() * characters.length)];
+                ctx.fillText(text, i * 15, y * 15);
+                drops[i] = y * 15 > canvas.height && Math.random() > 0.975 ? 0 : y + 1;
+            });
+        }
+        setInterval(draw, 50);
+
+        function login() {
+            alert("Access Denied");
+            
+        }
+    </script>
+</body>
+</html>
