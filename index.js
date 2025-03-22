@@ -1,4 +1,28 @@
-alert("This Website is mainly for pc users ")
+(async function detectDevice() {
+    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+    // More precise mobile detection (includes tablets)
+    const isMobile = /Mobi|Android|iPhone|iPad|iPod|Windows Phone|webOS|BlackBerry|Opera Mini|IEMobile/i.test(userAgent) 
+                      || (navigator.maxTouchPoints > 1 && /Macintosh|Windows/i.test(userAgent));
+
+    // Detect screen size along with userAgent for accuracy
+    const isSmallScreen = window.matchMedia("(max-width: 800px)").matches;
+
+    // Final Decision: Must have mobile UA + small screen
+    const finalDetection = isMobile && isSmallScreen;
+
+    // Logging Output with Style
+    console.log(
+        `%c${finalDetection ? "📱 Mobile Device Detected!" : "🖥️ PC/Desktop Detected!"}`,
+        "color: white; background: linear-gradient(135deg, #00AEEF, #FF073A); font-size: 14px; padding: 5px; border-radius: 5px;"
+    );
+
+    // Show Alert Based on Detection
+    if (finalDetection) {
+        alert("This website is mainly for PC users!");
+    }
+})();
+
 
 
 // List of random "hacking" words and phrases
