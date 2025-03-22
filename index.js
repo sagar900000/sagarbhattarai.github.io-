@@ -1,3 +1,6 @@
+alert("This Website is mainly for pc users ")
+
+
 // List of random "hacking" words and phrases
 const hackingWords = [ 
     '>>> Initializing...', '>>> Bypassing firewall...', '>>> Injecting code...', '>>> Accessing database...',
